@@ -1,0 +1,29 @@
+
+  {% extends "layout.html" %}
+
+  {% block content %}
+
+    <table id="game" align="center">
+    
+      <title class="title">Calendar</title>
+
+      <div style="width: 288px; align-content: center;">
+        {% for event in day.events %}
+          <tr text-align="center">
+            <td colspan="2">{{event.start_time()}}</td>
+            <td colspan="2">{{event.end_time()}} / {{event.width}}</td>
+          </tr>
+        {% endfor %}
+      </div>
+
+      <div style="width: 288px; align-content: center;">
+        {% for hour in day.hours %}
+          <tr text-align="center">
+            <td>{{hour}}</td>
+          </tr>
+        {% endfor %}
+      </div>
+
+    </table>
+
+  {% endblock %}
