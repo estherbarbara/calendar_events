@@ -2,29 +2,29 @@
   {% extends "layout.html" %}
 
   {% block content %}
-  <div id="table-scroll">
+  
     <table id="game" align="center" width="288px">
 
         <thead>
-            <tr>
-                <th colspan="{{day.max_events + 1}}" style="background-color: #a5bfe0">Donnerstag</th>
-            </tr>
+          <tr>
+            <th colspan="{{day.max_events + 1}}" style="background-color: #a5bfe0">Donnerstag</th>
+          </tr>
         </thead>
+
         <tbody>
           {% for hour in day.hours %}
             <tr text-align="center">
               <td>{{hour.hour_str}}</td>
-              {% set i = 0 %}
-              {% for event in hour.events %}
-                <td style="background-color: {{event.color}};
-                {% if event.start_time()|string() != hour.hour_str|string() %} border-top: none; {% endif %}
-                {% if event.end_time()|string() != hour.hour_str|string() %} border-bottom: none; {% endif %}"> </td>
-              {% endfor %}
+                {% for event in hour.events %}
+                  <td style="background-color: {{event.color}};
+                    {% if event.start_time()|string() != hour.hour_str|string() %} border-top: none; {% endif %}
+                    {% if event.end_time()|string() != hour.hour_str|string() %} border-bottom: none; {% endif %}"> </td>
+                {% endfor %}
             </tr>
           {% endfor %}
         </tbody>
 
     </table>
-  </div>
+  
 
   {% endblock %}
