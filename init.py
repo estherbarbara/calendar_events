@@ -37,16 +37,20 @@ class Day:
     def __init__(self, events):
         hours = []
         i=0
+        max_events = 0
         while i<24 :
             hour_events = []
             for event in events :
                 ev_start = event.start_hour + (event.start_min/100)
                 ev_end = event.end_hour + (event.end_min/100)
                 if ev_start <= i and ev_end >= i :
-                    hour_events.append(event.color)
+                    hour_events.append(event)
             hours.append( Hour( (("0" if i < 10 else "") + str(int(i)) + ":" + ( "30" if i-int(i)==0.5 else "00" ) ), hour_events) )
             i += 0.5
+            if max_events < len(hour_events) :
+                max_events = len(hour_events)
         self.hours = hours
+        self.max_events = max_events
 
 def count_collision_events(events, index):
     event = events[index]
