@@ -35,18 +35,19 @@ class Hour:
 
 class Day:
     def __init__(self, events):
-    	hours = []
-    	i=0
-    	while i<24 :
+        hours = []
+        i=0
+        while i<24 :
             hour_events = []
             for event in events :
                 ev_start = event.start_hour + (event.start_min/100)
                 ev_end = event.end_hour + (event.end_min/100)
-                if ev_start >= i/2 and ev_end <= i/2 :
+                if ev_start <= i and ev_end >= i :
                     hour_events.append(event.color)
             hours.append( Hour( (("0" if i < 10 else "") + str(int(i)) + ":" + ( "30" if i-int(i)==0.5 else "00" ) ), hour_events) )
-            i=i+0.5
+            i += 0.5
         self.hours = hours
+
 def count_collision_events(events, index):
     event = events[index]
     i = 0
@@ -62,7 +63,7 @@ def count_collision_events(events, index):
             #or looped event ends after the event_x start and ends before event_x ends
             if ( looped_hour_start > current_ev_start and looped_hour_start < current_ev_end ) or ( looped_hour_end > current_ev_start and looped_hour_end < current_ev_end ) : 
                 collision_counter = collision_counter + 1
-        i = i + 1
+        i += 1
     return collision_counter
 
 
@@ -85,14 +86,14 @@ def home():
     event = Event(15, 30, 16, 0)
     events.append(event)
 
-    colors = ["blue", "green", "red", "navy", "purple", "pink"]
+    colors = ["lightblue", "lightgreen", "orange", "violet", "pink", "yellow", "red"]
     index = 0
     while index < len(events) :
         event = events[index]
         coll = count_collision_events(events,index)
         event.set_width( event.width/coll )
-        index = index + 1
-        #event.set_color( colors[i] )
+        event.set_color( colors[index] )
+        index += 1
 
     #A calendar day
     day = Day(events)

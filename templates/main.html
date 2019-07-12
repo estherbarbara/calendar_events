@@ -5,21 +5,15 @@
 
     <table id="game" align="center">
     
-      <title class="title">Calendar</title>
-
-      <div style="width: 288px; align-content: center;">
-        {% for event in day.events %}
-          <tr text-align="center">
-            <td colspan="2">{{event.start_time()}}</td>
-            <td colspan="2">{{event.end_time()}} / {{event.width}}</td>
-          </tr>
-        {% endfor %}
-      </div>
+      <title class="title">Donnerstag</title>
 
       <div style="width: 288px; align-content: center;">
         {% for hour in day.hours %}
           <tr text-align="center">
-            <td>{{hour}}</td>
+            <td>{{hour.hour_str}}</td>
+            {% for event_colour in hour.events %}
+              <td style="background-color: {{event_colour}}"></td>
+            {% endfor %}
           </tr>
         {% endfor %}
       </div>
